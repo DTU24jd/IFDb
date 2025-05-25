@@ -6,7 +6,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const GENRES = [
   'Drama', 'Comedy', 'Action', 'Thriller', 'Crime',
@@ -19,7 +19,6 @@ export default function Izbornik() {
   const [search, setSearch] = useState('');
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // Funkcija za pretragu serija
   const handleSearch = (e: React.FormEvent) => {
@@ -44,7 +43,6 @@ export default function Izbornik() {
 
   // Prikaz izbornika ovisno o stranici
   const isHome = pathname === '/';
-  const isEpisodeDetail = pathname.includes('/episodes/');
   const showBackToShow = !isHome;
 
   return (

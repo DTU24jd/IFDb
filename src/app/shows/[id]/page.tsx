@@ -78,7 +78,7 @@ export default async function ShowDetail({ params }: { params: { id: string } })
         {/* Cast sekcija */}
         <h2 className="text-xl md:text-2xl font-bold mb-2 text-green-800 text-center md:text-left">Glumačka postava</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 mb-8">
-          {cast.slice(0, 8).map((c: any, idx: number) => (
+          {cast.slice(0, 8).map((c: { person: { id: number; name: string; image?: { medium: string } }; character: { name: string; image?: { medium: string } } }, idx: number) => (
             <div key={`${c.person.id}-${encodeURIComponent(c.character.name)}-${idx}`} className="rounded shadow p-2 flex flex-col items-center bg-white border border-green-100 hover:shadow-lg transition">
               <Link href={`/actors/${c.person.id}`}> 
                 <img
@@ -101,7 +101,7 @@ export default async function ShowDetail({ params }: { params: { id: string } })
           <div className="mt-8 md:mt-10">
             <h2 className="text-xl md:text-2xl font-bold mb-2 text-purple-800 text-center md:text-left">Ekipa (crew)</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 mb-8">
-              {crew.slice(0, 12).map((c: any, idx: number) => (
+              {crew.slice(0, 12).map((c: { person: { id: number; name: string; image?: { medium: string } }; type: string }, idx: number) => (
                 c.person && c.type && (
                   <div key={`${c.person.id}-${c.type}-${idx}`} className="rounded shadow p-2 flex flex-col items-center bg-white border border-purple-100 hover:shadow-lg transition">
                     <Link href={`/actors/${c.person.id}`}> 
@@ -128,7 +128,7 @@ export default async function ShowDetail({ params }: { params: { id: string } })
       <div className="mt-8 md:mt-10">
         <h2 className="text-xl md:text-2xl font-bold mb-2 text-blue-800 text-center md:text-left">Epizode</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
-          {episodes.slice(0, 4).map((episode: any) => (
+          {episodes.slice(0, 4).map((episode: { id: number; season: number; number: number; name: string; airdate: string; image?: { medium: string } }) => (
             <div key={id + '-' + episode.id} className="border p-2 md:p-4 rounded bg-white shadow hover:shadow-lg transition">
               <Link href={`/shows/${id}/episodes/${episode.id}`} className="text-blue-700 hover:text-green-700 font-semibold text-base md:text-lg underline">
                 Sezona {episode.season}, Epizoda {episode.number}: {episode.name}

@@ -17,11 +17,30 @@ interface CastCredit {
   };
 }
 
+interface Actor {
+  id: number;
+  name: string;
+  image?: { medium: string };
+  country?: { name: string };
+  birthday?: string;
+}
+
+interface CrewCredit {
+  type: string;
+  _embedded: {
+    show: {
+      id: number;
+      name: string;
+      image?: { medium: string };
+    };
+  };
+}
+
 export default function ActorPage({ params }: { params: Promise<{ actorId: string }> }) {
   const { actorId } = use(params);
-  const [actor, setActor] = useState<any>(null);
+  const [actor, setActor] = useState<Actor | null>(null);
   const [credits, setCredits] = useState<CastCredit[]>([]);
-  const [crew, setCrew] = useState<any[]>([]);
+  const [crew, setCrew] = useState<CrewCredit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,14 +52,14 @@ export default function ActorPage({ params }: { params: Promise<{ actorId: strin
         // Dohvati podatke o glumcu
         const actorRes = await fetch(`https://api.tvmaze.com/people/${actorId}`);
         if (!actorRes.ok) throw new Error('Greška pri dohvaćanju podataka o glumcu.');
-        const actorData = await actorRes.json();
+        const actorData: Actor = await actorRes.json();
         // Dohvati sve serije i uloge glumca
         const creditsRes = await fetch(`https://api.tvmaze.com/people/${actorId}/castcredits?embed[]=show&embed[]=character`);
         if (!creditsRes.ok) throw new Error('Greška pri dohvaćanju uloga.');
-        const creditsData = await creditsRes.json();
+        const creditsData: CastCredit[] = await creditsRes.json();
         // Dohvati crew podatke
         const crewRes = await fetch(`https://api.tvmaze.com/people/${actorId}/crewcredits?embed[]=show`);
-        let crewData = [];
+        let crewData: CrewCredit[] = [];
         if (crewRes.ok) {
           crewData = await crewRes.json();
         }

@@ -24,7 +24,7 @@ const handler = NextAuth({
       // Dodaj korisnički id u session
       if (session.user && token.sub) {
         // NextAuth types ne predviđaju id na useru, pa ga dodajemo ručno
-        (session.user as any).id = token.sub;
+        (session.user as { id?: string }).id = token.sub;
       }
       return session;
     },

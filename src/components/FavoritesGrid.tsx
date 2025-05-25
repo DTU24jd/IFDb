@@ -15,7 +15,7 @@ type Show = {
 
 export default function FavoritesGrid() {
   const [favorites, setFavorites] = useState<Show[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // Dohvati favorite s backend API-ja
   useEffect(() => {

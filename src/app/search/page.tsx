@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
   const query = searchParams.q || "";
-  let results: any[] = [];
+  let results: { show: { id: number; name: string; image?: { medium: string }; rating?: { average: number } } }[] = [];
   if (query) {
     const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`);
     if (res.ok) {

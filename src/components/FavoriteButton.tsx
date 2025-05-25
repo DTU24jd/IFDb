@@ -8,8 +8,8 @@
 import { useState, useEffect } from 'react';
 
 export default function FavoriteButton({ showId }: { showId: number }) {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // useEffect dohvaća favorite s backend API-ja kad se promijeni showId
   useEffect(() => {

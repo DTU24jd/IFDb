@@ -15,13 +15,13 @@ export default async function EpisodesListPage({ params }: { params: { id: strin
   const { id } = params;
   const res = await fetch(`https://api.tvmaze.com/shows/${id}/episodes`);
   if (!res.ok) return <div>Greška pri dohvaćanju epizoda.</div>;
-  const episodes = await res.json();
+  const episodes: Episode[] = await res.json();
 
   return (
     <div className="p-4 bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-blue-900">Sve epizode</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {episodes.map((episode: any) => (
+        {episodes.map((episode) => (
           <div key={episode.id} className="border p-4 rounded bg-white shadow hover:shadow-lg transition">
             <Link href={`/shows/${id}/episodes/${episode.id}`} className="text-blue-700 hover:text-green-700 font-semibold text-lg underline">
               Sezona {episode.season}, Epizoda {episode.number}: {episode.name}
