@@ -25,7 +25,6 @@ type Show = {
   genres?: string[];
 };
 
-const PAGE_SIZE = 20;
 const MAX_PAGES = 5; // TVmaze demo ograničenje
 
 export default function HomePage() {
